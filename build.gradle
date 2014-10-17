@@ -10,3 +10,10 @@ repositories {
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.11'
 }
+
+task init << {
+  // TODO
+  // use configuration from settings file
+  // check if gitolite-admin repository exists
+  // if not, clone it into gitolite-admin directory
+}
