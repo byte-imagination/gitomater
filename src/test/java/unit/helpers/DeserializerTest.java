@@ -10,8 +10,8 @@ public class DeserializerTest {
 
   @Test
   public void parsesTypicalConfiguration() {
-    Deserializer deserializer = new Deserializer();
-    List<Repository> repositories = deserializer.parse("src/test/resources/gitolite.conf");
+    Deserializer deserializer = new Deserializer("src/test/resources/gitolite.conf");
+    List<Repository> repositories = deserializer.parse();
     assert repositories.size() == 6;
     assert repositories.get(0).name.equals("android/AndroidLib");
     assert repositories.get(0).privileges.containsKey("RW+");
@@ -51,8 +51,8 @@ public class DeserializerTest {
 
   @Test
   public void parsesSingleEntryConfiguration() {
-    Deserializer deserializer = new Deserializer();
-    List<Repository> repositories = deserializer.parse("src/test/resources/gitolite2.conf");
+    Deserializer deserializer = new Deserializer("src/test/resources/gitolite2.conf");
+    List<Repository> repositories = deserializer.parse();
     assert repositories.size() == 1;
     assert repositories.get(0).name.equals("gitolite-admin");
     assert repositories.get(0).privileges.containsKey("RW+");
@@ -62,8 +62,8 @@ public class DeserializerTest {
 
   @Test
   public void parsesEmptyConfiguration() {
-    Deserializer deserializer = new Deserializer();
-    List<Repository> repositories = deserializer.parse("src/test/resources/gitolite3.conf");
+    Deserializer deserializer = new Deserializer("src/test/resources/gitolite3.conf");
+    List<Repository> repositories = deserializer.parse();
     assert repositories.size() == 0;
   }
 

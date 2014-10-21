@@ -13,7 +13,13 @@ import java.util.List;
 
 public class Deserializer {
 
-  public List<Repository> parse(String path) {
+  private final String path;
+
+  public Deserializer(String path) {
+    this.path = path;
+  }
+
+  public List<Repository> parse() {
     File file = new File(path);
     if (!file.exists())
       throw new RuntimeException("File '" + path + "' does not exist.");
