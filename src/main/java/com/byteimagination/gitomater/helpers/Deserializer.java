@@ -11,7 +11,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class ConfigurationParser {
+public class Deserializer {
 
   public List<Repository> parse(String path) {
     File file = new File(path);

@@ -1,17 +1,17 @@
 package unit.helpers;
 
-import com.byteimagination.gitomater.helpers.ConfigurationParser;
+import com.byteimagination.gitomater.helpers.Deserializer;
 import com.byteimagination.gitomater.models.Repository;
 import org.junit.Test;
 
 import java.util.List;
 
-public class ConfigurationParserTest {
+public class DeserializerTest {
 
   @Test
   public void parsesTypicalConfiguration() {
-    ConfigurationParser configurationParser = new ConfigurationParser();
-    List<Repository> repositories = configurationParser.parse("src/test/resources/gitolite.conf");
+    Deserializer deserializer = new Deserializer();
+    List<Repository> repositories = deserializer.parse("src/test/resources/gitolite.conf");
     assert repositories.size() == 6;
     assert repositories.get(0).name.equals("android/AndroidLib");
     assert repositories.get(0).privileges.containsKey("RW+");
@@ -51,8 +51,8 @@ public class ConfigurationParserTest {
 
   @Test
   public void parsesSingleEntryConfiguration() {
-    ConfigurationParser configurationParser = new ConfigurationParser();
-    List<Repository> repositories = configurationParser.parse("src/test/resources/gitolite2.conf");
+    Deserializer deserializer = new Deserializer();
+    List<Repository> repositories = deserializer.parse("src/test/resources/gitolite2.conf");
     assert repositories.size() == 1;
     assert repositories.get(0).name.equals("gitolite-admin");
     assert repositories.get(0).privileges.containsKey("RW+");
@@ -62,8 +62,8 @@ public class ConfigurationParserTest {
 
   @Test
   public void parsesEmptyConfiguration() {
-    ConfigurationParser configurationParser = new ConfigurationParser();
-    List<Repository> repositories = configurationParser.parse("src/test/resources/gitolite3.conf");
+    Deserializer deserializer = new Deserializer();
+    List<Repository> repositories = deserializer.parse("src/test/resources/gitolite3.conf");
     assert repositories.size() == 0;
   }
 
