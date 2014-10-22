@@ -12,8 +12,11 @@ dependencies {
 }
 
 task init << {
-  // TODO
-  // use configuration from settings file
-  // check if gitolite-admin repository exists
-  // if not, clone it into gitolite-admin directory
+  if (!new File('gitolite-admin').exists())
+    project.exec {
+      commandLine = ['git']
+      args = ['clone', gitomaterGitoliteRepository, 'gitolite-admin']
+    }
+  else
+    println 'Already initialized.'
 }
