@@ -12,24 +12,24 @@ public class SerializerTest {
   @Test
   public void savesTypicalConfiguration() {
     List<Repository> repositories = new Deserializer("src/test/resources/gitolite.conf").parse();
-    new Serializer(repositories, "tmp/deserializer_test/gitolite.conf").write();
-    List<Repository> repositoriesToCheck = new Deserializer("tmp/deserializer_test/gitolite.conf").parse();
+    new Serializer(repositories, "tmp/serializer_test/gitolite.conf").write();
+    List<Repository> repositoriesToCheck = new Deserializer("tmp/serializer_test/gitolite.conf").parse();
     assertRepositoriesCollectionsMatch(repositories, repositoriesToCheck);
   }
 
   @Test
   public void savesSingleEntryConfiguration() {
     List<Repository> repositories = new Deserializer("src/test/resources/gitolite2.conf").parse();
-    new Serializer(repositories, "tmp/deserializer_test/gitolite2.conf").write();
-    List<Repository> repositoriesToCheck = new Deserializer("tmp/deserializer_test/gitolite2.conf").parse();
+    new Serializer(repositories, "tmp/serializer_test/gitolite2.conf").write();
+    List<Repository> repositoriesToCheck = new Deserializer("tmp/serializer_test/gitolite2.conf").parse();
     assertRepositoriesCollectionsMatch(repositories, repositoriesToCheck);
   }
 
   @Test
   public void savesEmptyConfiguration() {
     List<Repository> repositories = new Deserializer("src/test/resources/gitolite3.conf").parse();
-    new Serializer(repositories, "tmp/deserializer_test/gitolite3.conf").write();
-    List<Repository> repositoriesToCheck = new Deserializer("tmp/deserializer_test/gitolite3.conf").parse();
+    new Serializer(repositories, "tmp/serializer_test/gitolite3.conf").write();
+    List<Repository> repositoriesToCheck = new Deserializer("tmp/serializer_test/gitolite3.conf").parse();
     assertRepositoriesCollectionsMatch(repositories, repositoriesToCheck);
   }
 

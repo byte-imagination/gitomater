@@ -3,3 +3,4 @@
 gitolite-admin
 tmp
 build
+.gradle

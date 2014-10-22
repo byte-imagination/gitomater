@@ -12,10 +12,12 @@ Nice tool to manage git repositories handled by gitolite.
 
 ### Configuration
 
-All you have to do is to define the path to your git server. Just insert this line: 
+All you have to do is to define the path to your git server. Just insert this line:
+
 ```
 gitomaterGitoliteRepository=ssh://user@server/gitolite-admin.git
 ```
+
 into your ~/.gradle/gradle.properties.
 
 ### Usage
@@ -26,4 +28,18 @@ First, you need to:
 
 ```bash
 gradle init
+```
+
+Then you can do:
+
+- read help
+
+```bash
+gradle showHelp
+```
+
+- addRepository
+
+```bash
+gradle addRepository -PrepositoryName=nameOfRepository -Pprivileges='RW=john, RW+=eve stan'
 ```

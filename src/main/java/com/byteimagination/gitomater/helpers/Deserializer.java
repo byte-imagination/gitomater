@@ -1,5 +1,6 @@
 package com.byteimagination.gitomater.helpers;
 
+import com.byteimagination.gitomater.exceptions.ConfigurationNotFoundException;
 import com.byteimagination.gitomater.models.Repository;
 
 import java.io.BufferedReader;
@@ -22,7 +23,7 @@ public class Deserializer {
   public List<Repository> parse() {
     File file = new File(path);
     if (!file.exists())
-      throw new RuntimeException("File '" + path + "' does not exist.");
+      throw new ConfigurationNotFoundException(path);
     List<String> lines = readFile(file);
     List<Repository> repositories = new ArrayList<Repository>();
     int nextRepositoryLine = 0;

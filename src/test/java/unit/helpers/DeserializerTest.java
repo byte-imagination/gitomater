@@ -1,5 +1,6 @@
 package unit.helpers;
 
+import com.byteimagination.gitomater.exceptions.ConfigurationNotFoundException;
 import com.byteimagination.gitomater.helpers.Deserializer;
 import com.byteimagination.gitomater.models.Repository;
 import org.junit.Test;
@@ -65,6 +66,12 @@ public class DeserializerTest {
     Deserializer deserializer = new Deserializer("src/test/resources/gitolite3.conf");
     List<Repository> repositories = deserializer.parse();
     assert repositories.size() == 0;
+  }
+
+  @Test(expected = ConfigurationNotFoundException.class)
+  public void throwsConfigurationNotFoundExceptionWhenFileDoesNotExist() {
+    Deserializer deserializer = new Deserializer("src/test/resources/file_that_does_not_exist");
+    deserializer.parse();
   }
 
 }
