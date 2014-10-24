@@ -2,6 +2,7 @@ package unit;
 
 import com.byteimagination.gitomater.Gitomater;
 import com.byteimagination.gitomater.exceptions.RepositoryAlreadyExistsException;
+import com.byteimagination.gitomater.helpers.CommandExecutor;
 import com.byteimagination.gitomater.models.Repository;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,7 +21,7 @@ public class GitomaterTest {
     File file = new File(TMP_GITOMATER_TEST_GITOLITE_CONF_PATH + "/conf/gitolite.conf");
     if (file.exists())
       file.delete();
-    gitomater = new Gitomater(TMP_GITOMATER_TEST_GITOLITE_CONF_PATH);
+    gitomater = new Gitomater(TMP_GITOMATER_TEST_GITOLITE_CONF_PATH, new DummyCommandExecutor());
   }
 
   @Test
@@ -57,7 +58,7 @@ public class GitomaterTest {
     gitomater.addRepository(repository2);
     gitomater.save();
 
-    Gitomater gitomater = new Gitomater(TMP_GITOMATER_TEST_GITOLITE_CONF_PATH);
+    Gitomater gitomater = new Gitomater(TMP_GITOMATER_TEST_GITOLITE_CONF_PATH, new DummyCommandExecutor());
     gitomater.load();
     List<Repository> repositories = gitomater.getRepositories();
     assert repositories.size() == 2;
@@ -79,7 +80,7 @@ public class GitomaterTest {
     gitomater.addRepository(repository3);
     gitomater.save();
 
-    gitomater = new Gitomater(TMP_GITOMATER_TEST_GITOLITE_CONF_PATH);
+    gitomater = new Gitomater(TMP_GITOMATER_TEST_GITOLITE_CONF_PATH, new DummyCommandExecutor());
     gitomater.load();
     repositories = gitomater.getRepositories();
     assert repositories.size() == 3;
@@ -95,6 +96,14 @@ public class GitomaterTest {
     gitomater.load();
     gitomater.addRepository(repository1);
     gitomater.addRepository(repository1);
+  }
+
+  private static class DummyCommandExecutor extends CommandExecutor {
+
+    @Override
+    public void execute(List<String> arguments) {
+    }
+
   }
 
 }
