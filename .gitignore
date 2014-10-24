@@ -1,2 +1,6 @@
 .idea
 *.iml
+gitolite-admin
+tmp
+build
+.gradle
