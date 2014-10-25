@@ -38,8 +38,15 @@ task init << {
 }
 
 task addRepository(dependsOn: 'classes', type: JavaExec) {
-  description 'Adds new repository. Execute: gradle addRepository -PrepositoryName=repo/nameOfRepo -Pprivileges=\'RW=a b, RW+=d e f\''
+  description 'Adds new repository. Execute: gradle addRepository -PrepositoryName=nameOfRepo -Pprivileges=\'RW=a b, RW+=d e f\''
   main = mainClassName
   classpath = sourceSets.main.runtimeClasspath
   args 'addRepository', 'gitolite-admin', "${ -> repositoryName}", "${ -> privileges}"
+}
+
+task addPrivileges(dependsOn: 'classes', type: JavaExec) {
+  description 'Adds repository privileges. Execute: gradle addPrivileges -PrepositoryName=nameOfRepo -Pprivileges=\'RW=a b, RW+=d e f\''
+  main = mainClassName
+  classpath = sourceSets.main.runtimeClasspath
+  args 'addPrivileges', 'gitolite-admin', "${ -> repositoryName}", "${ -> privileges}"
 }

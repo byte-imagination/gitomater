@@ -15,7 +15,7 @@ public class ChangeLog {
     changeLog.append("+repo ").append(repository.name).append(".git");
     List<String> keySet = getSortedPrivilegesKeySet(repository);
     for (String key : keySet)
-      appendPrivileges(repository.privileges.get(key), key, repository);
+      appendPrivileges(key, repository.privileges.get(key), repository);
   }
 
   private List<String> getSortedPrivilegesKeySet(Repository repository) {
@@ -25,7 +25,7 @@ public class ChangeLog {
     return keySet;
   }
 
-  private void appendPrivileges(List<String> users, String key, Repository repository) {
+  public void appendPrivileges(String key, List<String> users, Repository repository) {
     for (String user : users) {
       appendNewLineIfNeeded();
       changeLog.append("+").append(key).append(" ").append(user).append("@").append(repository.name).append(".git");
