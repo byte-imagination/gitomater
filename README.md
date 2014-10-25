@@ -38,8 +38,14 @@ Then you can do:
 gradle showHelp
 ```
 
-- addRepository
+- add repository
 
 ```bash
 gradle addRepository -PrepositoryName=nameOfRepository -Pprivileges='RW=john, RW+=eve stan'
+```
+
+- add privileges
+
+```bash
+gradle addPrivileges -PrepositoryName=nameOfRepository -Pprivileges='RW=john, RW+eve stan'
 ```

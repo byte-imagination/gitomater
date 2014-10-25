@@ -11,6 +11,7 @@ import com.byteimagination.gitomater.models.Repository;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 public class Gitomater {
 
@@ -68,6 +69,32 @@ public class Gitomater {
         throw new RepositoryAlreadyExistsException();
     repositories.add(repository);
     changeLog.appendRepository(repository);
+  }
+
+  public void addPrivileges(String repositoryName, Map<String, List<String>> privileges) {
+    Repository repository = getRepository(repositoryName);
+    for (String key : privileges.keySet()) {
+      if (!repository.privileges.containsKey(key))
+        repository.privileges.put(key, new ArrayList<String>());
+      List<String> existingPrivileges = repository.privileges.get(key);
+      List<String> newPrivileges = privileges.get(key);
+      for (String user : newPrivileges)
+        if (!existingPrivileges.contains(user)) {
+          existingPrivileges.add(user);
+          changeLog.appendPrivileges(key, Arrays.asList(user), repository);
+        }
+    }
+  }
+
+  public ChangeLog getChangeLog() {
+    return changeLog;
+  }
+
+  public Repository getRepository(String name) {
+    for (Repository repository : getRepositories())
+      if (repository.name.equals(name))
+        return repository;
+    return null;
   }
 
 }

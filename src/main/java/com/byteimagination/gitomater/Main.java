@@ -3,6 +3,9 @@ package com.byteimagination.gitomater;
 import com.byteimagination.gitomater.helpers.RepositoryCLIParametersParser;
 import com.byteimagination.gitomater.models.Repository;
 
+import java.util.List;
+import java.util.Map;
+
 public class Main {
 
   public static void main(String[] args) {
@@ -26,6 +29,9 @@ public class Main {
       case addRepository:
         addRepository(args);
         break;
+      case addPrivileges:
+        addPrivileges(args);
+        break;
     }
   }
 
@@ -35,10 +41,18 @@ public class Main {
   }
 
   private static void addRepository(String[] args) {
-    Repository repository = RepositoryCLIParametersParser.parse(args[2], args[3]);
+    Repository repository = RepositoryCLIParametersParser.parseRepository(args[2], args[3]);
     Gitomater gitomater = new Gitomater(args[1]);
     gitomater.load();
     gitomater.addRepository(repository);
+    gitomater.save();
+  }
+
+  private static void addPrivileges(String[] args) {
+    Map<String, List<String>> privileges = RepositoryCLIParametersParser.parsePrivileges(args[3]);
+    Gitomater gitomater = new Gitomater(args[1]);
+    gitomater.load();
+    gitomater.addPrivileges(args[2], privileges);
     gitomater.save();
   }
 
