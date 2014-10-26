@@ -50,3 +50,10 @@ task addPrivileges(dependsOn: 'classes', type: JavaExec) {
   classpath = sourceSets.main.runtimeClasspath
   args 'addPrivileges', 'gitolite-admin', "${ -> repositoryName}", "${ -> privileges}"
 }
+
+task takePrivileges(dependsOn: 'classes', type: JavaExec) {
+  description 'Takes repository privileges. Execute: gradle takePrivileges -PrepositoryName=nameOfRepo -Pprivileges=\'RW=a b, RW+=d e f\''
+  main = mainClassName
+  classpath = sourceSets.main.runtimeClasspath
+  args 'takePrivileges', 'gitolite-admin', "${ -> repositoryName}", "${ -> privileges}"
+}

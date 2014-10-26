@@ -149,6 +149,51 @@ public class GitomaterTest {
     assert repository.privileges.get("b").contains("e");
   }
 
+  @Test
+  public void takesPrivilegesToExistingRepository() {
+    Repository repository11 = new Repository();
+    repository11.name = "11";
+    List<String> privileges11_1 = new ArrayList<String>();
+    privileges11_1.add("z");
+    privileges11_1.add("x");
+    privileges11_1.add("c");
+    repository11.privileges.put("a", privileges11_1);
+    List<String> privileges11_2 = new ArrayList<String>();
+    privileges11_2.add("v");
+    privileges11_2.add("b");
+    privileges11_2.add("n");
+    repository11.privileges.put("b", privileges11_2);
+
+    gitomater.load();
+    assert gitomater.getRepositories().size() == 0;
+    gitomater.addRepository(repository11);
+    gitomater.save();
+
+    gitomater = new Gitomater(TMP_GITOMATER_TEST_GITOLITE_CONF_PATH, new DummyCommandExecutor());
+    gitomater.load();
+    gitomater.takePrivileges("11", RepositoryCLIParametersParser.parsePrivileges("R=e f, RW+=g h, W=, b=e v"));
+    gitomater.save();
+
+    assert !gitomater.getChangeLog().getChangeLog().contains("-R e@11.git");
+    assert !gitomater.getChangeLog().getChangeLog().contains("-R f@11.git");
+    assert !gitomater.getChangeLog().getChangeLog().contains("-b e@11.git");
+    assert gitomater.getChangeLog().getChangeLog().contains("-b v@11.git");
+
+    gitomater = new Gitomater(TMP_GITOMATER_TEST_GITOLITE_CONF_PATH, new DummyCommandExecutor());
+    gitomater.load();
+    Repository repository = gitomater.getRepository("11");
+    assert repository.privileges.size() == 2;
+    assert repository.privileges.get("R") == null;
+    assert repository.privileges.get("W") == null;
+    assert repository.privileges.get("a").size() == 3;
+    assert repository.privileges.get("a").contains("z");
+    assert repository.privileges.get("a").contains("x");
+    assert repository.privileges.get("a").contains("c");
+    assert repository.privileges.get("b").size() == 2;
+    assert repository.privileges.get("b").contains("b");
+    assert repository.privileges.get("b").contains("n");
+  }
+
   @Test(expected = RepositoryAlreadyExistsException.class)
   public void throwsRepositoryAlreadyExistsException() {
     Repository repository1 = new Repository();

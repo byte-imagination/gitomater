@@ -32,6 +32,9 @@ public class Main {
       case addPrivileges:
         addPrivileges(args);
         break;
+      case takePrivileges:
+        takePrivileges(args);
+        break;
     }
   }
 
@@ -53,6 +56,14 @@ public class Main {
     Gitomater gitomater = new Gitomater(args[1]);
     gitomater.load();
     gitomater.addPrivileges(args[2], privileges);
+    gitomater.save();
+  }
+
+  private static void takePrivileges(String[] args) {
+    Map<String, List<String>> privileges = RepositoryCLIParametersParser.parsePrivileges(args[3]);
+    Gitomater gitomater = new Gitomater(args[1]);
+    gitomater.load();
+    gitomater.takePrivileges(args[2], privileges);
     gitomater.save();
   }
 
