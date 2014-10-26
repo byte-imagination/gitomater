@@ -32,6 +32,13 @@ public class ChangeLog {
     }
   }
 
+  public void appendTakenPrivileges(String key, List<String> users, Repository repository) {
+    for (String user : users) {
+      appendNewLineIfNeeded();
+      changeLog.append("-").append(key).append(" ").append(user).append("@").append(repository.name).append(".git");
+    }
+  }
+
   private void appendNewLineIfNeeded() {
     if (changeLog.length() > 0)
       changeLog.append("\n");

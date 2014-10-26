@@ -86,6 +86,21 @@ public class Gitomater {
     }
   }
 
+  public void takePrivileges(String repositoryName, Map<String, List<String>> privileges) {
+    Repository repository = getRepository(repositoryName);
+    for (String key : privileges.keySet()) {
+      if (!repository.privileges.containsKey(key))
+        continue;
+      List<String> existingPrivileges = repository.privileges.get(key);
+      List<String> privilegesToTake = privileges.get(key);
+      for (String user : privilegesToTake)
+        if (existingPrivileges.contains(user)) {
+          existingPrivileges.remove(user);
+          changeLog.appendTakenPrivileges(key, Arrays.asList(user), repository);
+        }
+    }
+  }
+
   public ChangeLog getChangeLog() {
     return changeLog;
   }

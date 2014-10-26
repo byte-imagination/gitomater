@@ -49,3 +49,9 @@ gradle addRepository -PrepositoryName=nameOfRepository -Pprivileges='RW=john, RW
 ```bash
 gradle addPrivileges -PrepositoryName=nameOfRepository -Pprivileges='RW=john, RW+eve stan'
 ```
+
+- take privileges
+
+```bash
+gradle takePrivileges -PrepositoryName=nameOfRepository -Pprivileges='RW=john, RW+eve stan'
+```
